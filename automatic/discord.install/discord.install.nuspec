@@ -5,7 +5,7 @@
     <id>discord.install</id>
     <version>0.0.301</version>
     <title>Discord (Install)</title>
-    <iconUrl>https://raw.githubusercontent.com/tixona/chocolatey-packages/master/icons/discord.svg</iconUrl>
+    <iconUrl>https://cdn.rawgit.com/tixona/chocolatey-packages/master/icons/discord.svg</iconUrl>
     <owners>malborn,pauby</owners>
     <packageSourceUrl>https://github.com/tixona/chocolatey-packages/tree/master/automatic/discord.install</packageSourceUrl>
     
