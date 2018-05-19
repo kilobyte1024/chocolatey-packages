@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>discord</id>
+    <version>0.0.301</version>
+    <title>Discord</title>
+    <iconUrl>https://raw.githubusercontent.com/tixona/chocolatey-packages/master/icons/discord.svg</iconUrl>
+    <owners>pauby,dtgm,malborn</owners>
+    <packageSourceUrl>https://github.com/tixona/chocolatey-packages/tree/master/automatic/discord</packageSourceUrl>
+    
+    <authors>Hammer + Chisel Inc.</authors>
+    <copyright>2018 Hammer + Chisel Inc.</copyright>
+    <projectUrl>https://discordapp.com/</projectUrl>
+    <docsUrl>https://support.discordapp.com/hc/</docsUrl>
+    <releaseNotes>Release Notes: [Changelog](https://blog.discordapp.com/tagged/changelog)</releaseNotes>
+    <licenseUrl>https://discordapp.com/terms/</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+    <tags>admin discord voip chat voice-chat gamer gaming</tags>
+    <summary>Discord is an all-in-one voice and text chat for gamers that’s free, secure, and works on both your desktop and phone.</summary>
+    <description><![CDATA[Discord is an all-in-one voice and text chat for gamers that’s free, secure, and works on both your desktop and phone.
+
+### Features
+* Low-latency and Minimal CPU Usage
+* IP and DDoS Protection
+* Multiple Channels, Friends List, Direct Messaging
+* In-game Overlay
+* Cross-Platform: Windows, OSX, Linux, Android, iOS and Browser Support
+* Modern text and voice chat
+* Many other features
+
+**NOTE**: This is an automatically updated package. If you find it is out of date by more than a week, please contact the maintainer(s) and let them know the package is no longer updating correctly.
+]]></description>
+    <dependencies>
+      <dependency id="discord.install" version="0.0.301" />
+    </dependencies>
+  </metadata>
+  <files />
+</package>
