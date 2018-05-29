@@ -1,16 +1,12 @@
-﻿$ErrorActionPreference  = 'Stop';
-
-$packageName            = 'discord.install'
-$softwareName           = 'discord*'
-
+﻿$ErrorActionPreference  = 'Stop'
 $uninstalled            = $false
 
-[array]$key             = Get-UninstallRegistryKey -SoftwareName $softwareName
+[array]$key             = Get-UninstallRegistryKey -SoftwareName 'discord*'
 
 if ($key.Count -eq 1) {
   $key | % {
     $packageArgs = @{
-      packageName       = $packageName
+      packageName       = $env:ChocolateyPackageName 
       fileType          = 'exe'
       silentArgs        = '-s --uninstall'
       validExitCodes    = @(0)
