@@ -6,7 +6,7 @@ $uninstalled            = $false
 if ($key.Count -eq 1) {
   $key | % {
     $packageArgs = @{
-      packageName       = $env:ChocolateyPackageName 
+      packageName       = 'discord.install'
       fileType          = 'exe'
       silentArgs        = '-s --uninstall'
       validExitCodes    = @(0)

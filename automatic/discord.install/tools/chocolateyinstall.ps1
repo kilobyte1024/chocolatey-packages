@@ -1,7 +1,7 @@
 ﻿$ErrorActionPreference  = 'Stop'
 
 $packageArgs = @{
-  packageName       = $env:ChocolateyPackageName 
+  packageName       = 'discord.install'
   fileType          = 'exe'
   url               = 'https://dl.discordapp.net/apps/win/0.0.301/DiscordSetup.exe'
   url64bit          = 'https://dl.discordapp.net/apps/win/0.0.301/DiscordSetup.exe'
