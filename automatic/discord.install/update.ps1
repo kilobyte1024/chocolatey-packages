@@ -40,7 +40,12 @@ function global:au_GetLatest {
         
         $url = $location
     }    
-        
+    
+    $url32 = $url
+    $url64 = $url
+
+    $version = ($url -split '/' | select -Last 1 -Skip 1) 
+    
     $current_checksum = (gi $PSScriptRoot\tools\chocolateyInstall.ps1 | sls '\bchecksum\b') -split "=|'" | Select -Last 1 -Skip 1
     
     if ($current_checksum.Length -ne 64) { 
@@ -54,18 +59,15 @@ function global:au_GetLatest {
         
         $global:au_old_force = $global:au_force
         $global:au_force = $true
+        $global:au_Version = $version
     }
         
-    $url32 = $url
-    $url64 = $url
-
-    $version = ($url -split '/' | select -Last 1 -Skip 1) 
-
     $Latest = @{ 
-                URL32       = $url32; 
-                URL64       = $url64; 
+                URL32       = $url32
+                URL64       = $url64 
                 Version     = $version 
-                Checksum32  = $remote_checksum
+                Checksum32  = $remote_checksum 
+                Checksum64  = $remote_checksum
               }  
     
     return $Latest
