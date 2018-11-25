@@ -8,9 +8,9 @@ $packageArgs = @{
 
   softwareName      = 'discord*'
 
-  checksum          = '4ca0db268656fd3928633b4cea554ca356def0b8188ada68ec4e56d1696f6bf2'
+  checksum          = 'X'
   checksumType      = 'sha256'
-  checksum64        = ''
+  checksum64        = 'X'
   checksumType64    = 'sha256'
 
   silentArgs        = "-s"
