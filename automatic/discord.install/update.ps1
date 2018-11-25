@@ -41,6 +41,21 @@ function global:au_GetLatest {
         $url = $location
     }    
         
+    $current_checksum = (gi $PSScriptRoot\tools\chocolateyInstall.ps1 | sls '\bchecksum\b') -split "=|'" | Select -Last 1 -Skip 1
+    
+    if ($current_checksum.Length -ne 64) { 
+        throw "Can't find current checksum" 
+    }
+    
+    $remote_checksum = Get-RemoteChecksum $url
+        
+    if ($current_checksum -ne $remote_checksum) {
+        Write-Host 'Remote checksum is different then the current one, forcing update'
+        
+        $global:au_old_force = $global:au_force
+        $global:au_force = $true
+    }
+        
     $url32 = $url
     $url64 = $url
 
@@ -50,11 +65,16 @@ function global:au_GetLatest {
                 URL32       = $url32; 
                 URL64       = $url64; 
                 Version     = $version 
+                Checksum32  = $remote_checksum
               }  
     
     return $Latest
 }
 
 if ($MyInvocation.InvocationName -ne '.') {
-    update
+    update -ChecksumFor none
+    
+    if ($global:au_old_force -is [bool]) { 
+        $global:au_force = $global:au_old_force 
+    }
 } 
