@@ -5,7 +5,7 @@
     <id>discord</id>
     <version>0.0.301.20181127</version>
     <title>Discord</title>
-    <iconUrl>https://cdn.rawgit.com/tixona/chocolatey-packages/master/icons/discord.svg</iconUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/tixona/chocolatey-packages/icons/discord.svg</iconUrl>
     <owners>pauby,dtgm,malborn</owners>
     <packageSourceUrl>https://github.com/tixona/chocolatey-packages/tree/master/automatic/discord</packageSourceUrl>
     
