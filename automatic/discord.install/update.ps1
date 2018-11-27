@@ -59,7 +59,7 @@ function global:au_GetLatest {
         
         $global:au_old_force = $global:au_force
         $global:au_force = $true
-        $global:au_Version = $version
+        #$global:au_Version = $version
     }
         
     $Latest = @{ 
