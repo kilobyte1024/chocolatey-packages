@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>discord.install</id>
-    <version>0.0.301</version>
+    <version>0.0.301.20181127</version>
     <title>Discord (Install)</title>
     <iconUrl>https://cdn.rawgit.com/tixona/chocolatey-packages/master/icons/discord.svg</iconUrl>
     <owners>malborn,pauby</owners>
