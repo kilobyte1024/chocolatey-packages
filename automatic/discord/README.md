@@ -1,4 +1,4 @@
-# <img src="https://cdn.rawgit.com/tixona/chocolatey-packages/master/icons/discord.svg" alt="Discord" title="Discord Logo" width="100%" height="250"> [Discord](https://chocolatey.org/packages/discord)
+# <img src="https://cdn.jsdelivr.net/gh/tixona/chocolatey-packages/icons/discord.svg" alt="Discord" title="Discord Logo" width="100%" height="250"> [Discord](https://chocolatey.org/packages/discord)
 
 Discord is an all-in-one voice and text chat for gamers that’s free, secure, and works on both your desktop and phone.
 
