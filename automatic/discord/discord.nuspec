@@ -33,7 +33,7 @@
 **NOTE**: This is an automatically updated package. If you find it is out of date by more than a week, please contact the maintainer(s) and let them know the package is no longer updating correctly.
 ]]></description>
     <dependencies>
-      <dependency id="discord.install" version="0.0.301" />
+      <dependency id="discord.install" version="0.0.304" />
     </dependencies>
   </metadata>
   <files />
