@@ -5,16 +5,16 @@
     <id>discord</id>
     <version>1.0.9039</version>
     <title>Discord</title>
-    <iconUrl>https://cdn.jsdelivr.net/gh/tixona/chocolatey-packages/icons/discord.svg</iconUrl>
-    <owners>pauby,dtgm,malborn</owners>
-    <packageSourceUrl>https://github.com/tixona/chocolatey-packages/tree/master/automatic/discord</packageSourceUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/kilobyte1024/chocolatey-packages/icons/discord.svg</iconUrl>
+    <owners>g2nightmare,malborn,kilobyte</owners>
+    <packageSourceUrl>https://github.com/kilobyte1024/chocolatey-packages/tree/master/automatic/discord</packageSourceUrl>
     
-    <authors>Hammer + Chisel Inc.</authors>
-    <copyright>2018 Hammer + Chisel Inc.</copyright>
-    <projectUrl>https://discordapp.com/</projectUrl>
-    <docsUrl>https://support.discordapp.com/hc/</docsUrl>
-    <releaseNotes>Release Notes: [Changelog](https://blog.discordapp.com/tagged/changelog)</releaseNotes>
-    <licenseUrl>https://discordapp.com/terms/</licenseUrl>
+    <authors>Discord Inc.</authors>
+    <copyright>All rights reserved</copyright>
+    <projectUrl>https://discord.com/</projectUrl>
+    <docsUrl>https://support.discord.com/hc/</docsUrl>
+    <releaseNotes>Release Notes: [Changelog](https://discord.com/tags/changelog)</releaseNotes>
+    <licenseUrl>https://discord.com/terms#6</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
     <tags>admin discord voip chat voice-chat gamer gaming</tags>

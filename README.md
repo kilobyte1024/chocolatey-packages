@@ -1,7 +1,7 @@
 # Chocolatey Packages
 
-[![](https://ci.appveyor.com/api/projects/status/github/tixona/chocolatey-packages?svg=true)](https://ci.appveyor.com/project/tixona/chocolatey-packages)
-[Update status](https://gist.github.com/tixona/82ca65975512d5f7ed51e11251df9e83)
+[![](https://ci.appveyor.com/api/projects/status/github/kilobyte1024/chocolatey-packages?svg=true)](https://ci.appveyor.com/project/kilobyte1024/chocolatey-packages)
+[Update status](https://gist.github.com/kilobyte1024/82ca65975512d5f7ed51e11251df9e83)
 
 ## Chocolatey Packages Template
 
