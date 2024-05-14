@@ -1,6 +1,6 @@
 import-module au
 
-$releases = 'https://discordapp.com/api/download?platform=win'
+$releases = 'https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86'
 
 function global:au_SearchReplace {
     @{
@@ -23,9 +23,7 @@ function global:au_AfterUpdate ($Package)  {
     Set-DescriptionFromReadme $Package -SkipFirst 2 
 }
 
-function global:au_GetLatest {
-    $url = $releases
-
+function Update-Url ($url) {
     while($true) {
     
         $request = [System.Net.WebRequest]::Create($url)
@@ -40,34 +38,41 @@ function global:au_GetLatest {
         
         $url = $location
     }    
-    
-    $url32 = $url
-    $url64 = $url
+    return $url
+}
 
-    $version = ($url -split '/' | select -Last 1 -Skip 1) 
+function global:au_GetLatest {
+    $url = $releases
+    
+    $url32 = Update-Url($releases)
+    $url64 = Update-Url($releases -replace 'x86', 'x64')
+
+    $version = ($url32 -split '/' | Select-Object -Last 1 -Skip 1) 
     
     $current_checksum = (gi $PSScriptRoot\tools\chocolateyInstall.ps1 | sls '\bchecksum\b') -split "=|'" | Select -Last 1 -Skip 1
+    $current_checksum64 = (gi $PSScriptRoot\tools\chocolateyInstall.ps1 | sls '\bchecksum64\b') -split "=|'" | Select -Last 1 -Skip 1
     
     if ($current_checksum.Length -ne 64) { 
         throw "Can't find current checksum" 
     }
     
-    $remote_checksum = Get-RemoteChecksum $url
-        
-    if ($current_checksum -ne $remote_checksum) {
+    $remote_checksum32 = Get-RemoteChecksum $url32
+    $remote_checksum64 = Get-RemoteChecksum $url64
+    
+    if ($current_checksum -ne $remote_checksum32 -or $current_checksum64 -ne $remote_checksum64) {
         Write-Host 'Remote checksum is different then the current one, forcing update'
         
         $global:au_old_force = $global:au_force
         $global:au_force = $true
         #$global:au_Version = $version
     }
-        
+    
     $Latest = @{ 
                 URL32       = $url32
-                URL64       = $url64 
-                Version     = $version 
-                Checksum32  = $remote_checksum 
-                Checksum64  = $remote_checksum
+                URL64       = $url64
+                Version     = $version
+                Checksum32  = $remote_checksum32
+                Checksum64  = $remote_checksum64
               }  
     
     return $Latest
