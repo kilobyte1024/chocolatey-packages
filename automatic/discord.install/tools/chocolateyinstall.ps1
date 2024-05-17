@@ -1,4 +1,7 @@
 ﻿$ErrorActionPreference  = 'Stop'
+$installed              = False
+
+[array]$key             = Get-UninstallRegistryKey -SoftwareName 'discord*'
 
 $packageArgs = @{
   packageName       = 'discord.install'
@@ -17,4 +20,16 @@ $packageArgs = @{
   validExitCodes    = @(0)
 }
 
-Install-ChocolateyPackage @packageArgs 
+if ($key.Count -eq 0) {
+  Install-ChocolateyPackage @packageArgs 
+} elseif ($key.Count -eq 1) {
+  Write-Warning "$packageName has already been installed. Aborting."
+  Write-Warning "Please use the upgrade facility built in to Discord to upgrade,"
+  Write-Warning "or uninstall and reinstall."
+} elseif ($key.Count -gt 1) {
+  Write-Warning "$key.Count matches found!"
+  Write-Warning "To prevent accidental data loss, no programs will be installed."
+  Write-Warning "Please alert package maintainer the following keys were matched:"
+  
+  $key | % {Write-Warning "- $_.DisplayName"}
+}
