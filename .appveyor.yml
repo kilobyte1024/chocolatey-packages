@@ -19,34 +19,34 @@ environment:
   au_test_groups: 1
 
   # Github token to commit pushed packages to repository
-  github_user_repo: tixona/chocolatey-packages
+  github_user_repo: kilobyte1024/chocolatey-packages
   github_api_key:
-    secure: Flhjj2Wp5GsoYgySbOWVdXGEOGivxyTTqw+mccVUvVJl984y0qDykiJ4txYsyzah #https://ci.appveyor.com/tools/encrypt
+    secure: J+LAshUNhdYVSPyJyiSLedqkkx/mLw7XLHjmlhubH0Qt9neAyh3s7n2g0H8R7zJxtSXJTX+pjJ7LZjzs76RqIQ1TOMw5UDx6hX4UYat6sy5/ZIuq0QTH7UYOq7cSeD0R #https://ci.appveyor.com/tools/encrypt
 
 
   # Mail credentials - for error notifications
   mail_user:
-    secure: Wi0QyGV4zYWjkspDygLoxVA5jt4cH5ekBX/4H30X4Ug= #https://ci.appveyor.com/tools/encrypt
+    secure: 1XEMCLusQXUlxBvzkzacubOQ6Oiwr5epLpOB9riCpq4= #https://ci.appveyor.com/tools/encrypt
   mail_pass:
-    secure: YyWckAjnGqmgIVy0CHZrPg== #https://ci.appveyor.com/tools/encrypt
+    secure: mrSqWL90/GX2OomrMVoyyzhYmzCkmJ5mhEwUz8+LxQk= #https://ci.appveyor.com/tools/encrypt
   mail_server: smtp.gmail.com
   mail_port: 587
   mail_enablessl: true
 
   # ID of the gist used to save run results - create a gist under the github_user (secret or not) and grab the id - https://gist.github.com/name/id
   # Optional, leave empty to create anonymous gist
-  gist_id: 82ca65975512d5f7ed51e11251df9e83
+  gist_id: 923dadc2aad7acab57ee8cbe11c2e46b
 
   # Force test: gist id for test results
-  gist_id_test: 0648457cf7be896b52c15bdbd9a40dcb
+  gist_id_test: b21b4bd6ebc85e2e8f672ea8b4853b2b
 
   # Chocolatey API key - to push updated packages
   api_key:
-    secure: 93YOVA8p7yrNmEwuyKg41dKFWKsSppIm7Tk04Qew1eC7PI9lG9O2qWAP1UAN9+zT # https://ci.appveyor.com/tools/encrypt
+    secure: VNBxI+kDBxQ7y+TQypI9CfFFUi7f9DZVpsx0u7Wl/ggPkuXhjOfz8H7lScE/w7Kl # https://ci.appveyor.com/tools/encrypt
 
 init:
-- git config --global user.email "chocolatey@realdimensions.net"
-- git config --global user.name "Chocolatey"
+- git config --global user.email "kilobyte+au@gmail.com"
+- git config --global user.name "AU"
 - git config --global core.safecrlf false
 
 install:

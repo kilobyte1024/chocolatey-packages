@@ -1,4 +1,4 @@
-import-module au
+Import-Module AU
 
 $releases = 'https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86'
 
@@ -49,8 +49,8 @@ function global:au_GetLatest {
 
     $version = ($url32 -split '/' | Select-Object -Last 1 -Skip 1) 
     
-    $current_checksum = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum\b') -split "=|'" | Select -Last 1 -Skip 1
-    $current_checksum64 = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum64\b') -split "=|'" | Select -Last 1 -Skip 1
+    $current_checksum = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum\b') -split "=|'" | Select-Object -Last 1 -Skip 1
+    $current_checksum64 = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum64\b') -split "=|'" | Select-Object -Last 1 -Skip 1
     
     if ($current_checksum.Length -ne 64) { 
         throw "Can't find current checksum" 
@@ -64,7 +64,7 @@ function global:au_GetLatest {
         
         $global:au_old_force = $global:au_force
         $global:au_force = $true
-        #$global:au_Version = $version
+        $global:au_Version = $version
     }
     
     $Latest = @{ 

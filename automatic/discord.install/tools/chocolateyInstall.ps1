@@ -17,7 +17,11 @@ $packageArgs = @{
   validExitCodes    = @(0)
 }
 
-$DiscordPath = Join-Path -Path $Env:ProgramFiles -ChildPath 'Discord\Discord.exe'
+# ex: C:\Users\foobar\AppData\Local\Discord\app-1.0.9147
+#$DefaultDiscordPath = Join-Path $Env:LOCALAPPDATA "Discord" * "Discord.exe" -Resolve
+#$DefaultDiscordPresent = Test-Path -Path $DefaultDiscordPath
+
+$DiscordPath = Join-Path $Env:PROGRAMDATA "chocolatey\lib\Discord\Discord.exe"
 $DiscordPresent = Test-Path -Path $DiscordPath
 
 if ($DiscordPresent) {
