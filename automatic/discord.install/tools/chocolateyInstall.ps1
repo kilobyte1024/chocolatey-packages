@@ -1,7 +1,4 @@
 ﻿$ErrorActionPreference  = 'Stop'
-$installed              = $false
-
-[array]$key             = Get-UninstallRegistryKey -SoftwareName 'discord*'
 
 $packageArgs = @{
   packageName       = 'discord.install'
@@ -20,17 +17,17 @@ $packageArgs = @{
   validExitCodes    = @(0)
 }
 
-if ($key.Count -eq 0) {
+$DiscordPath = Join-Path -Path $Env:ProgramFiles -ChildPath 'Discord\Discord.exe'
+$DiscordPresent = Test-Path -Path $DiscordPath
+
+if ($DiscordPresent) {
+  $InstalledVersion = (Get-ItemProperty -Path $DiscordPath -ErrorAction:SilentlyContinue).VersionInfo.ProductVersion
+  $DiscordOutdated = [Version]$($Env:ChocolateyPackageVersion) -gt [Version]$InstalledVersion
+}
+
+# Only Attempt an install if the existing version is the same or newer than the package version, or if forced
+if (-not $DiscordPresent -or ($DiscordPresent -and $DiscordOutdated) -or $Env:ChocolateyForce)
+{
+  Get-Process 'discord' -ErrorAction SilentlyContinue | Stop-Process -Force
   Install-ChocolateyPackage @packageArgs
-  $installed = $true
-} elseif ($key.Count -eq 1) {
-  Write-Warning "$packageName has already been installed. Aborting."
-  Write-Warning "Please use the upgrade facility built in to Discord to upgrade,"
-  Write-Warning "or uninstall and reinstall."
-} elseif ($key.Count -gt 1) {
-  Write-Warning "$key.Count matches found!"
-  Write-Warning "To prevent accidental data loss, no programs will be installed."
-  Write-Warning "Please alert package maintainer the following keys were matched:"
-  
-  $key | ForEach-Object {Write-Warning "- $_.DisplayName"}
 }

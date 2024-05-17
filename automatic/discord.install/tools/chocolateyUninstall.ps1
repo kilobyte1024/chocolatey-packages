@@ -1,5 +1,4 @@
 ﻿$ErrorActionPreference  = 'Stop'
-$uninstalled            = $false
 
 [array]$key             = Get-UninstallRegistryKey -SoftwareName 'discord*'
 
@@ -14,7 +13,6 @@ if ($key.Count -eq 1) {
     }
 
     Uninstall-ChocolateyPackage  @packageArgs
-    $uninstalled            = $true
   }
 } elseif ($key.Count -eq 0) {
   Write-Warning "$packageName has already been uninstalled by other means."
