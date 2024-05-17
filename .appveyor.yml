@@ -26,10 +26,10 @@ environment:
 
   # Mail credentials - for error notifications
   mail_user:
-    secure: 1XEMCLusQXUlxBvzkzacubOQ6Oiwr5epLpOB9riCpq4= #https://ci.appveyor.com/tools/encrypt
+    secure: iU5RogZRAFOC2i5BIIyy1dpsR6+LSodKwIN9i6IVaGqwfgRBNDZDuL+RDa4Svo7UwesKrIQTO17rNhe5ZzKH2A== #https://ci.appveyor.com/tools/encrypt
   mail_pass:
-    secure: mrSqWL90/GX2OomrMVoyyzhYmzCkmJ5mhEwUz8+LxQk= #https://ci.appveyor.com/tools/encrypt
-  mail_server: smtp.gmail.com
+    secure: iq63DId2TvzWrm7CPi2h55k23PV2wpwe51w+4toKzjVFybkqIGdAUGBw0YEClHZA+84DQtuGh5jJRB4p4ub1Bg== #https://ci.appveyor.com/tools/encrypt
+  mail_server: smtp.mailgun.org
   mail_port: 587
   mail_enablessl: true
 
@@ -45,8 +45,8 @@ environment:
     secure: VNBxI+kDBxQ7y+TQypI9CfFFUi7f9DZVpsx0u7Wl/ggPkuXhjOfz8H7lScE/w7Kl # https://ci.appveyor.com/tools/encrypt
 
 init:
-- git config --global user.email "kilobyte+au@gmail.com"
-- git config --global user.name "AU"
+- git config --global user.email "kilobyte@gmail.com"
+- git config --global user.name "Appveyor Commit"
 - git config --global core.safecrlf false
 
 install:
