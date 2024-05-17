@@ -49,8 +49,8 @@ function global:au_GetLatest {
 
     $version = ($url32 -split '/' | Select-Object -Last 1 -Skip 1) 
     
-    $current_checksum = (gi $PSScriptRoot\tools\chocolateyInstall.ps1 | sls '\bchecksum\b') -split "=|'" | Select -Last 1 -Skip 1
-    $current_checksum64 = (gi $PSScriptRoot\tools\chocolateyInstall.ps1 | sls '\bchecksum64\b') -split "=|'" | Select -Last 1 -Skip 1
+    $current_checksum = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum\b') -split "=|'" | Select -Last 1 -Skip 1
+    $current_checksum64 = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum64\b') -split "=|'" | Select -Last 1 -Skip 1
     
     if ($current_checksum.Length -ne 64) { 
         throw "Can't find current checksum" 
