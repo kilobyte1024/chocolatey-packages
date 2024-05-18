@@ -3,14 +3,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>discord.install</id>
-    <version>1.0.9046.20240514</version>
+    <version>1.0.9046</version>
     <title>Discord (Install)</title>
     <iconUrl>https://cdn.jsdelivr.net/gh/kilobyte1024/chocolatey-packages/icons/discord.svg</iconUrl>
     <owners>g2nightmare,malborn,kilobyte</owners>
     <packageSourceUrl>https://github.com/kilobyte1024/chocolatey-packages/tree/master/automatic/discord.install</packageSourceUrl>
     
     <authors>Discord Inc.</authors>
-    <copyright>All rights reserved</copyright>
+    <copyright>©️ 2024 Discord Inc. All rights reserved.</copyright>
     <projectUrl>https://discord.com/</projectUrl>
     <docsUrl>https://support.discord.com/hc/</docsUrl>
     <releaseNotes>Release Notes: [Changelog](https://discord.com/tags/changelog)</releaseNotes>
@@ -27,7 +27,7 @@
 * Multiple Channels, Friends List, Direct Messaging
 * In-game Overlay
 * Cross-Platform: Windows, OSX, Linux, Android, iOS and Browser Support
-* Modern text and voice chat  
+* Modern text and voice chat, screen share
 * Many other features
 
 **NOTE**: This is an automatically updated package. If you find it is out of date by more than a week, please contact the maintainer(s) and let them know the package is no longer updating correctly.
