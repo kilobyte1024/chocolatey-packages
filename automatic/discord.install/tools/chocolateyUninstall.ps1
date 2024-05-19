@@ -1,6 +1,11 @@
 ﻿$ErrorActionPreference  = 'Stop'
+$softwareNamePattern = 'discord*'
 
-[array]$key             = Get-UninstallRegistryKey -SoftwareName 'discord*'
+# stop systray discord
+Get-Process 'discord' -ErrorAction SilentlyContinue | Stop-Process -Force
+
+# check for installs and begin uninstall if it makes sense
+[array]$key             = Get-UninstallRegistryKey -SoftwareName $softwareNamePattern
 
 if ($key.Count -eq 1) {
   $key | ForEach-Object {
@@ -13,6 +18,7 @@ if ($key.Count -eq 1) {
     }
 
     Uninstall-ChocolateyPackage  @packageArgs
+    Write-Warning 'Windows must reboot in order to complete the uninstallation.'
   }
 } elseif ($key.Count -eq 0) {
   Write-Warning "$packageName has already been uninstalled by other means."
