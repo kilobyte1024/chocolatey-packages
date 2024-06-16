@@ -55,7 +55,7 @@ $Options = [ordered]@{
                 Port       = $Env:mail_port
                 EnableSsl  = $Env:mail_enablessl -eq 'true'
                 Attachment = "$PSScriptRoot\update_info.xml"
-                UserMessage = ''
+                UserMessage = 'Save attachment and load it for detailed inspection: <code>$info = Import-CliXCML update_info.xml</code>'
                 SendAlways  = $false                        #Send notifications every time
              }
            } else {}
