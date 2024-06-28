@@ -47,7 +47,7 @@ function global:au_GetLatest {
     $url32 = Update-Url($releases)
     $url64 = Update-Url($releases -replace 'x86', 'x64')
 
-    $version = ($url32 -split '/' | Select-Object -Last 1 -Skip 1) 
+    $version = ($url64 -split '/' | Select-Object -Last 1 -Skip 1) 
     
     $current_checksum = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum\b') -split "=|'" | Select-Object -Last 1 -Skip 1
     $current_checksum64 = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum64\b') -split "=|'" | Select-Object -Last 1 -Skip 1

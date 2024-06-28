@@ -25,7 +25,7 @@ environment:
 
 
   # Mail credentials - for error notifications
-  mail_recip: kilobyte@gmail.com
+  mail_recip: kilobyte+mailgun@gmail.com
   mail_user:
     secure: iU5RogZRAFOC2i5BIIyy1dpsR6+LSodKwIN9i6IVaGqwfgRBNDZDuL+RDa4Svo7UwesKrIQTO17rNhe5ZzKH2A== #https://ci.appveyor.com/tools/encrypt
   mail_pass:
