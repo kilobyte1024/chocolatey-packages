@@ -23,6 +23,7 @@ function global:au_AfterUpdate ($Package)  {
     Set-DescriptionFromReadme $Package -SkipFirst 2 
 }
 
+# This loop pulls through any redirects. We assume the final URL contains the version number we need.
 function Update-Url ($url, $headers) {
     while($true) {
     
