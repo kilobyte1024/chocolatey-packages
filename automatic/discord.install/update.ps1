@@ -1,7 +1,5 @@
 Import-Module Chocolatey-AU
 
-$releases = 'https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86'
-
 function global:au_SearchReplace {
     @{
         'tools\chocolateyinstall.ps1' = @{
@@ -27,10 +25,13 @@ function global:au_AfterUpdate ($Package)  {
 function Update-Url ($url, $headers) {
     while($true) {
     
-        $request = Invoke-WebRequest $url -Headers $header
+        $request = [System.Net.WebRequest]::Create($url)
         $request.AllowAutoRedirect = $false
-        
         $response = $request.GetResponse()
+        
+        # alt idea
+        # $response = Invoke-WebRequest -URI $url -Headers $header -HttpVersion 2.0
+        
         $location = $response.GetResponseHeader('Location')
         
         if (!$location -or ($location -eq $url)) { 
@@ -43,17 +44,21 @@ function Update-Url ($url, $headers) {
 }
 
 function global:au_GetLatest {
+
+    $releaseUri = 'https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch={0}'
     $headers = @{
         "User-Agent" = "Chocolatey AU update check. https://chocolatey.org"
     }
-    
-    $url = $releases
-    
-    echo test1
-    $url32 = Update-Url($releases, $headers)
-    echo test2
-    $url64 = Update-Url($releases -replace 'x86', 'x64', $headers)
-    echo test3
+
+    # workaround for Appveyor cxn problems
+    [System.Net.ServicePointManager]::DefaultConnectionLimit = 256
+
+    Write-Host ($releaseUri.ToString() -f 'x86')
+    Write-Host ($releaseUri.ToString() -f 'x64')
+    $url32 = Update-Url($releaseUri.ToString() -f 'x86', $headers)
+    Write-Host location 2
+    $url64 = Update-Url($releaseUri.ToString() -f 'x64', $headers)
+    Write-Host location 3
 
     $version = ($url64 -split '/' | Select-Object -Last 1 -Skip 1) 
     
