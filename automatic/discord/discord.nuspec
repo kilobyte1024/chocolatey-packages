@@ -7,7 +7,7 @@
     <title>Discord</title>
     <iconUrl>https://cdn.jsdelivr.net/gh/kilobyte1024/chocolatey-packages/icons/discord.svg</iconUrl>
     <owners>kilobyte</owners>
-    <packageSourceUrl>https://github.com/kilobyte1024/chocolatey-packages/tree/master/automatic/discord</packageSourceUrl>
+    <packageSourceUrl>https://github.com/kilobyte1024/chocolatey-packages/tree/main/automatic/discord</packageSourceUrl>
     
     <authors>Discord Inc.</authors>
     <copyright>©️ 2024 Discord Inc. All rights reserved.</copyright>
