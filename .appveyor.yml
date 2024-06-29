@@ -54,8 +54,12 @@ install:
 - ps: 'Get-CimInstance win32_operatingsystem -Property Caption, OSArchitecture, Version | fl Caption, OSArchitecture, Version'
 - ps: $PSVersionTable
 - git --version
+# TODO try removing Chocolatey-AU build from setup
+# a) Use powershell install-module chocolatey-au
+# b) Install chocolatey then use `setup/au_setup.ps1` instead of clone/build/install
 - ps: |
     git clone -q https://github.com/chocolatey-community/chocolatey-au.git $Env:TEMP/au
+    . "$Env:TEMP/au/build.ps1" -CurrentUser
     . "$Env:TEMP/au/scripts/Install-AU.ps1" $Env:au_version
 
 - ps: |
