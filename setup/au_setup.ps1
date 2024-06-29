@@ -1,7 +1,7 @@
 # WMF 3/4 only
 if ($PSVersionTable.PSVersion -lt $(New-Object System.Version("5.0.0.0"))) {
-  choco install dotnet4.5.1 -y
-  choco upgrade powershell-packagemanagement --ignore-dependencies -y
+  Write-Output Unsupported shell.
+  exit 1
 }
 
 $refreshenv = Get-Command refreshenv -ea SilentlyContinue
@@ -13,5 +13,5 @@ if ($null -ne $refreshenv -and $refreshenv.CommandType -ne 'Application') {
 
 Install-PackageProvider -Name NuGet -Force
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-Install-Module au -Scope AllUsers
-Get-Module au -ListAvailable | select Name, Version
+Install-Module chocolatey-au -Scope AllUsers
+Get-Module chocolatey-au -ListAvailable | select Name, Version

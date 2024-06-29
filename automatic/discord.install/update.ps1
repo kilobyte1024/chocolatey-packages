@@ -1,6 +1,4 @@
-Import-Module AU
-
-$releases = 'https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86'
+Import-Module Chocolatey-AU
 
 function global:au_SearchReplace {
     @{
@@ -23,13 +21,17 @@ function global:au_AfterUpdate ($Package)  {
     Set-DescriptionFromReadme $Package -SkipFirst 2 
 }
 
-function Update-Url ($url) {
+# This loop pulls through any redirects. We assume the final URL contains the version number we need.
+function Update-Url ($url, $headers) {
     while($true) {
     
         $request = [System.Net.WebRequest]::Create($url)
         $request.AllowAutoRedirect = $false
-        
         $response = $request.GetResponse()
+        
+        # alt idea
+        # $response = Invoke-WebRequest -URI $url -Headers $header -HttpVersion 2.0
+        
         $location = $response.GetResponseHeader('Location')
         
         if (!$location -or ($location -eq $url)) { 
@@ -42,12 +44,23 @@ function Update-Url ($url) {
 }
 
 function global:au_GetLatest {
-    $url = $releases
-    
-    $url32 = Update-Url($releases)
-    $url64 = Update-Url($releases -replace 'x86', 'x64')
 
-    $version = ($url32 -split '/' | Select-Object -Last 1 -Skip 1) 
+    $releaseUri = 'https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch={0}'
+    $headers = @{
+        "User-Agent" = "Chocolatey AU update check. https://chocolatey.org"
+    }
+
+    # workaround for Appveyor cxn problems
+    [System.Net.ServicePointManager]::DefaultConnectionLimit = 256
+
+    Write-Host ($releaseUri.ToString() -f 'x86')
+    Write-Host ($releaseUri.ToString() -f 'x64')
+    $url32 = Update-Url($releaseUri.ToString() -f 'x86', $headers)
+    Write-Host location 2
+    $url64 = Update-Url($releaseUri.ToString() -f 'x64', $headers)
+    Write-Host location 3
+
+    $version = ($url64 -split '/' | Select-Object -Last 1 -Skip 1) 
     
     $current_checksum = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum\b') -split "=|'" | Select-Object -Last 1 -Skip 1
     $current_checksum64 = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum64\b') -split "=|'" | Select-Object -Last 1 -Skip 1

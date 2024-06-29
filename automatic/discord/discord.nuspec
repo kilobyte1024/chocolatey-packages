@@ -6,7 +6,7 @@
     <version>1.0.9046</version>
     <title>Discord</title>
     <iconUrl>https://cdn.jsdelivr.net/gh/kilobyte1024/chocolatey-packages/icons/discord.svg</iconUrl>
-    <owners>g2nightmare,malborn,kilobyte</owners>
+    <owners>kilobyte</owners>
     <packageSourceUrl>https://github.com/kilobyte1024/chocolatey-packages/tree/master/automatic/discord</packageSourceUrl>
     
     <authors>Discord Inc.</authors>

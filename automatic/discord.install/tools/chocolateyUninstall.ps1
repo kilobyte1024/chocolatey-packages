@@ -18,7 +18,6 @@ if ($key.Count -eq 1) {
     }
 
     Uninstall-ChocolateyPackage  @packageArgs
-    Write-Warning 'Windows must reboot in order to complete the uninstallation.'
   }
 } elseif ($key.Count -eq 0) {
   Write-Warning "$packageName has already been uninstalled by other means."
