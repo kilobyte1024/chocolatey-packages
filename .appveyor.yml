@@ -59,7 +59,7 @@ install:
 # b) Install chocolatey then use `setup/au_setup.ps1` instead of clone/build/install
 - ps: |
     git clone -q https://github.com/chocolatey-community/chocolatey-au.git $Env:TEMP/au
-    . "$Env:TEMP/au/build.ps1" -CurrentUser
+    . "$Env:TEMP/au/build.ps1"
     . "$Env:TEMP/au/scripts/Install-AU.ps1" $Env:au_version
 
 - ps: |
