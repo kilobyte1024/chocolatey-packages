@@ -13,5 +13,5 @@ if ($null -ne $refreshenv -and $refreshenv.CommandType -ne 'Application') {
 
 Install-PackageProvider -Name NuGet -Force
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-Install-Module chocolatey-au -Scope AllUsers
-Get-Module chocolatey-au -ListAvailable | select Name, Version
+Install-Module Chocolatey-AU -Scope AllUsers
+Get-Module Chocolatey-AU -ListAvailable | select Name, Version
