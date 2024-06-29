@@ -2,12 +2,12 @@
 
 version: '{build}'
 max_jobs: 1
-image: WMF 5
+image: Visual Studio 2022
 # History plugin requires complete log
 #clone_depth: 5
 branches:
   only:
-  - master
+  - main
 #build:
 #  verbosity: minimal
 
@@ -55,7 +55,7 @@ install:
 - ps: $PSVersionTable
 - git --version
 - ps: |
-    git clone -q https://github.com/majkinetor/au.git $Env:TEMP/au
+    git clone --depth 1 -q https://github.com/chocolatey-community/chocolatey-au.git $Env:TEMP/au
     . "$Env:TEMP/au/scripts/Install-AU.ps1" $Env:au_version
 
 - ps: |
