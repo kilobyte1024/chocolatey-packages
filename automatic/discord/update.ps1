@@ -1,4 +1,4 @@
-Import-Module AU
+Import-Module Chocolatey-AU
 
 #Virtual package uses dependency updater to get the version 
 . $PSScriptRoot\..\discord.install\update.ps1
