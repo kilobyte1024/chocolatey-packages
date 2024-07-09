@@ -18,7 +18,10 @@ $packageArgs = @{
 }
 
 # ex: C:\Users\foobar\AppData\Local\Discord\app-1.0.9147\Discord.exe
-$DiscordPath = Join-Path $Env:LOCALAPPDATA "Discord" * "Discord.exe" -Resolve
+# pwsh7
+# $DiscordPath = Join-Path $Env:LOCALAPPDATA "Discord" * "Discord.exe" -Resolve
+# pwsh5
+$DiscordPath = Join-Path $Env:LOCALAPPDATA "Discord\*\Discord.exe" -Resolve
 $DiscordPresent = Test-Path -Path $DiscordPath
 
 if ($DiscordPresent) {
