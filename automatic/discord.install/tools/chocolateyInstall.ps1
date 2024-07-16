@@ -17,7 +17,7 @@ $packageArgs = @{
   validExitCodes    = @(0)
 }
 
-$pathsToSearch = $()
+$pathsToSearch = @()
 if (Test-Path (Join-Path $Env:LOCALAPPDATA -ChildPath 'Discord')) {
   $pathsToSearch = Join-Path $Env:LOCALAPPDATA -ChildPath 'Discord\*\Discord.exe' -Resolve
 }
@@ -29,12 +29,13 @@ $DiscordPresent = $false
 
 # ex: C:\Users\foobar\AppData\Local\Discord\app-1.0.9153\Discord.exe
 # Iterate through the paths and check if Discord.exe exists
+$versions = @()
 foreach ($path in $pathsToSearch) {
   if (Test-Path $path) {
     # Track each version # found
     $version = (Get-ItemProperty -Path $path -ErrorAction:SilentlyContinue).VersionInfo.ProductVersion
     if ($version) {
-        $versions += [Version]$version
+        $versions += ([Version]$version)
     }
   }
 }
@@ -44,7 +45,7 @@ $versions = $versions | Sort-Object -Descending
 Write-Host "Versions found: $versions"
 
 # if Discord is present
-if ($versions.Count -gt 0) {
+if ($null -ne $versions -and $versions.Count -gt 0) {
   $InstalledVersion = $versions[0]
   $DiscordOutdated = [Version]$($Env:ChocolateyPackageVersion) -gt [Version]$InstalledVersion
   $DiscordPresent = $true
