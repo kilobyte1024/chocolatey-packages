@@ -2,12 +2,12 @@
 
 version: '{build}'
 max_jobs: 1
-image: WMF 5
+image: Visual Studio 2022
 # History plugin requires complete log
 #clone_depth: 5
 branches:
   only:
-  - master
+  - main
 #build:
 #  verbosity: minimal
 
@@ -25,7 +25,7 @@ environment:
 
 
   # Mail credentials - for error notifications
-  mail_recip: kilobyte+mailgun@gmail.com
+  mail_recip: kilobyte@gmail.com
   mail_user:
     secure: iU5RogZRAFOC2i5BIIyy1dpsR6+LSodKwIN9i6IVaGqwfgRBNDZDuL+RDa4Svo7UwesKrIQTO17rNhe5ZzKH2A== #https://ci.appveyor.com/tools/encrypt
   mail_pass:
@@ -54,9 +54,12 @@ install:
 - ps: 'Get-CimInstance win32_operatingsystem -Property Caption, OSArchitecture, Version | fl Caption, OSArchitecture, Version'
 - ps: $PSVersionTable
 - git --version
-- ps: |
-    git clone -q https://github.com/majkinetor/au.git $Env:TEMP/au
-    . "$Env:TEMP/au/scripts/Install-AU.ps1" $Env:au_version
+- ps: . setup/au_setup.ps1
+
+# - ps: |
+#     git clone -q https://github.com/chocolatey-community/chocolatey-au.git $Env:TEMP/au
+#     . "$Env:TEMP/au/build.ps1"
+#     . "$Env:TEMP/au/scripts/Install-AU.ps1" $Env:au_version
 
 - ps: |
     "Build info"
