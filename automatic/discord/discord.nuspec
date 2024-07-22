@@ -10,7 +10,7 @@
     <packageSourceUrl>https://github.com/kilobyte1024/chocolatey-packages/tree/main/automatic/discord</packageSourceUrl>
     
     <authors>Discord Inc.</authors>
-    <copyright>&copy; 2024 Discord Inc. All rights reserved.</copyright>
+    <copyright>&#169; 2024 Discord Inc. All rights reserved.</copyright>
     <projectUrl>https://discord.com/</projectUrl>
     <docsUrl>https://support.discord.com/hc/</docsUrl>
     <releaseNotes>Release Notes: [Changelog](https://discord.com/tags/changelog)</releaseNotes>
