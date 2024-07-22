@@ -54,6 +54,7 @@ install:
 - ps: 'Get-CimInstance win32_operatingsystem -Property Caption, OSArchitecture, Version | fl Caption, OSArchitecture, Version'
 - ps: $PSVersionTable
 - git --version
+- ps: choco feature enable -name powershellprofile
 - ps: . setup/au_setup.ps1
 
 - ps: |
