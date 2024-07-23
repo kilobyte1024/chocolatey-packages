@@ -9,10 +9,6 @@ if ($null -ne $refreshenv -and $refreshenv.CommandType -ne 'Application') {
   refreshenv # You need the Chocolatey profile installed for this to work properly (Choco v0.9.10.0+).
 } else {
   Write-Warning "We detected that you do not have the Chocolatey PowerShell profile installed, which is necessary for 'refreshenv' to work in PowerShell."
-  new-item $Profile -itemtype file
-  Import-Module $env:ChocolateyInstall\helpers\chocolateyprofile.psm1 | add-content $Profile -append
-  Write-Warning "Attempted to add Chocolatey PowerShell profile."
-  refreshenv
 }
 
 Install-PackageProvider -Name NuGet -Force
