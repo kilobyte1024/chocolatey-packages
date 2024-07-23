@@ -3,14 +3,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>discord.install</id>
-    <version>1.0.9153</version>
+    <version>1.0.9154</version>
     <title>Discord (Install)</title>
     <iconUrl>https://cdn.jsdelivr.net/gh/kilobyte1024/chocolatey-packages/icons/discord.svg</iconUrl>
     <owners>kilobyte</owners>
     <packageSourceUrl>https://github.com/kilobyte1024/chocolatey-packages/tree/main/automatic/discord.install</packageSourceUrl>
     
     <authors>Discord Inc.</authors>
-    <copyright>&#169; 2024 Discord Inc. All rights reserved.</copyright>
+    <copyright>© 2024 Discord Inc. All rights reserved.</copyright>
     <projectUrl>https://discord.com/</projectUrl>
     <docsUrl>https://support.discord.com/hc/</docsUrl>
     <releaseNotes>Release Notes: [Changelog](https://discord.com/tags/changelog)</releaseNotes>
@@ -19,7 +19,7 @@
 	
     <tags>admin discord voip chat voice-chat gamer gaming</tags>
     <summary>Discord is an all-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.</summary>
-    <description><![CDATA[Discord is an all-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.
+    <description><![CDATA[Discord is an all-in-one voice and text chat for gamers that’s free, secure, and works on both your desktop and phone.
 
 ### Features
 * Low-latency and Minimal CPU Usage
