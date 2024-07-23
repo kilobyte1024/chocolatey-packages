@@ -37,6 +37,7 @@ $Options = [ordered]@{
     }
 
     Git = @{
+        Branch   = 'main'                                   #Default branch, target for successful edits; default is master
         User     = ''                                       #Git username, leave empty if github api key is used
         Password = $Env:github_api_key                      #Password if username is not empty, otherwise api key
     }
