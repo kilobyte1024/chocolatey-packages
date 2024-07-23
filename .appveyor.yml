@@ -54,12 +54,6 @@ install:
 - ps: 'Get-CimInstance win32_operatingsystem -Property Caption, OSArchitecture, Version | fl Caption, OSArchitecture, Version'
 - ps: $PSVersionTable
 - git --version
-- ps: |
-    Set-ExecutionPolicy Bypass -Scope Process
-    if (!(Test-Path -Path $PROFILE)) {
-      New-Item -ItemType File -Path $PROFILE -Force
-    }
-    Import-Module $env:ChocolateyInstall\helpers\ChocolateyProfile.psm1 | add-content $PROFILE -append
 - ps: . setup/au_setup.ps1
 
 - ps: |
