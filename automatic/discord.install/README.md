@@ -1,6 +1,6 @@
 # <img src="https://cdn.jsdelivr.net/gh/kilobyte1024/chocolatey-packages/icons/discord.svg" alt="Discord (Install)" title="Discord Logo" width="100%" height="250"> [Discord (Install)](https://chocolatey.org/packages/discord.install)
 
-Discord is an all-in-one voice and text chat for gamers that’s free, secure, and works on both your desktop and phone.
+Discord is an all-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.
 
 ### Features
 * Low-latency and Minimal CPU Usage

@@ -15,11 +15,14 @@ function global:au_SearchReplace {
      }
 }
 
-function global:au_BeforeUpdate() { }
-
-function global:au_AfterUpdate ($Package)  {
-    Set-DescriptionFromReadme $Package -SkipFirst 2 
+function global:au_BeforeUpdate() {
+    #Download $Latest.URL32 / $Latest.URL64 in tools directory and remove any older installers.
+    Get-RemoteFiles -Purge
 }
+
+# function global:au_AfterUpdate ($Package)  {
+#     Set-DescriptionFromReadme $Package -SkipFirst 2 
+# }
 
 # This loop pulls through any redirects. We assume the final URL contains the version number we need.
 function Update-Url ($url, $headers) {
@@ -56,42 +59,22 @@ function global:au_GetLatest {
     Write-Host ($releaseUri.ToString() -f 'x86')
     Write-Host ($releaseUri.ToString() -f 'x64')
     $url32 = Update-Url($releaseUri.ToString() -f 'x86', $headers)
-    Write-Host location 2
     $url64 = Update-Url($releaseUri.ToString() -f 'x64', $headers)
-    Write-Host location 3
 
     $version = ($url64 -split '/' | Select-Object -Last 1 -Skip 1) 
-    
-    $current_checksum = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum\b') -split "=|'" | Select-Object -Last 1 -Skip 1
-    $current_checksum64 = (Get-Item $PSScriptRoot\tools\chocolateyInstall.ps1 | Select-String '\bchecksum64\b') -split "=|'" | Select-Object -Last 1 -Skip 1
-    
-    if ($current_checksum.Length -ne 64) { 
-        throw "Can't find current checksum" 
-    }
-    
-    $remote_checksum32 = Get-RemoteChecksum $url32
-    $remote_checksum64 = Get-RemoteChecksum $url64
-    
-    if ($current_checksum -ne $remote_checksum32 -or $current_checksum64 -ne $remote_checksum64) {
-        Write-Host 'Remote checksum is different then the current one, forcing update'
-        
-        $global:au_old_force = $global:au_force
-        $global:au_force = $true
-        $global:au_Version = $version
-    }
     
     $Latest = @{ 
                 URL32       = $url32
                 URL64       = $url64
                 Version     = $version
-                Checksum32  = $remote_checksum32
-                Checksum64  = $remote_checksum64
-              }  
+              }
+    # checksums will be automatically updated by BeforeUpdate Get-RemoteFiles
     
     return $Latest
 }
 
 if ($MyInvocation.InvocationName -ne '.') {
+    # checksum done by Get-RemoteFiles
     update -ChecksumFor none
     
     if ($global:au_old_force -is [bool]) { 

@@ -19,7 +19,7 @@
 
     <tags>admin discord voip chat voice-chat gamer gaming</tags>
     <summary>Discord is an all-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.</summary>
-    <description><![CDATA[Discord is an all-in-one voice and text chat for gamers that’s free, secure, and works on both your desktop and phone.
+    <description><![CDATA[Discord is an all-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.
 
 ### Features
 * Low-latency and Minimal CPU Usage
@@ -33,7 +33,7 @@
 **NOTE**: This is an automatically updated package. If you find it is out of date by more than a week, please contact the maintainer(s) and let them know the package is no longer updating correctly.
 ]]></description>
     <dependencies>
-      <dependency id="discord.install" version="1.0.9046" />
+      <dependency id="discord.install" version="[1.0.9154]" />
     </dependencies>
   </metadata>
   <files />
