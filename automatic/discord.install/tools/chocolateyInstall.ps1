@@ -3,14 +3,14 @@
 $packageArgs = @{
   packageName       = 'discord.install'
   fileType          = 'exe'
-  url               = 'https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9054/DiscordSetup.exe'
-  url64bit          = 'https://dl.discordapp.net/distro/app/stable/win/x64/1.0.9155/DiscordSetup.exe'
+  url               = 'https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9058/DiscordSetup.exe'
+  url64bit          = 'https://dl.discordapp.net/distro/app/stable/win/x64/1.0.9161/DiscordSetup.exe'
 
   softwareName      = 'discord*'
 
-  checksum          = '5c2eda8e2fcd4755e0b9aecfaea60e493990a4c55c295a3d64681b3531c610ac'
+  checksum          = 'd392ed7efe44081ad92d82a18c847b4a721874e8f8168619576a3f90ac735d01'
   checksumType      = 'sha256'
-  checksum64        = '0ebfbc070e447829a0b8d396a26b88014ee2767a5c50cce4c24f84a196aa43b6'
+  checksum64        = '26e1ff9fc464497b5860c4133877de7606482f4c14c6be84d52e423fe29b98f0'
   checksumType64    = 'sha256'
 
   silentArgs        = "-s"
@@ -63,4 +63,9 @@ if (-not $DiscordPresent -or ($DiscordPresent -and $DiscordOutdated) -or $Env:Ch
   Get-Process 'discord' -ErrorAction SilentlyContinue | Stop-Process -Force
   Write-Host "Installing package"
   Install-ChocolateyPackage @packageArgs
+
+  Write-Host "Due to a bug in the Discord silent installer, you may see this error message:"
+  Write-Host "A fatal Javascript error occured"
+  Write-Host "Error: (InconsistentInstallerState) Attempt to install host that is currently running. current_exe_path: ..."
+  Write-Host "To fix, run $Env:LOCALAPPDATA\Discord\*\discord.exe --squirrel-firstrun"
 }
