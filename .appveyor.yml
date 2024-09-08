@@ -21,7 +21,7 @@ environment:
   # Github token to commit pushed packages to repository
   github_user_repo: kilobyte1024/chocolatey-packages
   github_api_key:
-    secure: J+LAshUNhdYVSPyJyiSLeey8svU7tCgqw8glx5FBwNH2qUZHaET6LWDwqcO+svQYFK7Cb9vYINvRvY7Hl0+HJYhSQHgJ32af7USiLafa4ukqLeCzCV+JQZX+0Lmzn/eI #https://ci.appveyor.com/tools/encrypt
+    secure: J+LAshUNhdYVSPyJyiSLefiqGy4tgXvKK1Yr4zQJYG06bURVBWwtwLJTBZ1fJna9L+ForXx0u7u7SH4JzcZL8i4qbfKcVkfpvm5mgDxCbfxBK0OWEG0+tisr46ONpp99 #https://ci.appveyor.com/tools/encrypt
 
 
   # Mail credentials - for error notifications
@@ -54,6 +54,8 @@ install:
 - ps: 'Get-CimInstance win32_operatingsystem -Property Caption, OSArchitecture, Version | fl Caption, OSArchitecture, Version'
 - ps: $PSVersionTable
 - git --version
+- ps:  Set-ExecutionPolicy -Scope CurrentUser RemoteSigned -Force
+- ps: Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
 - ps: . setup/au_setup.ps1
 
 - ps: |
