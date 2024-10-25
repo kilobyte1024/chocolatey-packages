@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>discord</id>
-    <version>1.0.9166</version>
+    <version>1.0.9168</version>
     <title>Discord</title>
     <iconUrl>https://cdn.jsdelivr.net/gh/kilobyte1024/chocolatey-packages/icons/discord.svg</iconUrl>
     <owners>kilobyte</owners>
@@ -30,30 +30,10 @@
 * Modern text and voice chat, screen share
 * Many other features
 
-### Silent installer bug
-
-There is a bug in the Discord silent installer. After installing when attempting to run Discord, you may receive an error:
-
-A fatal Javascript error occured
-
-```Error: (InconsistentInstallerState) Attempt to install host that is currently running.
-current_exe_path:
-"\\\\?\\...\AppData\Local\Discord\app-1.0.9166\Discord.exe"
-host_install_path: ...\AppData\Local\Discord\app-1.0.9166"
-    at Updater._handleResponse
-(...\AppData\Local\Discord\app-1.0.9166\resources\app.asar\common...:17)
-```
-
-To work around this error:
-
-Run `"C:\Users\*\AppData\Local\Discord\*\Discord.exe" --squirrel-firstrun`
-
-(Substitute your username and the current app version in case of any errors.)
-
 **NOTE**: This is an automatically updated package. If you find it is out of date by more than a week, please contact the maintainer(s) and let them know the package is no longer updating correctly.
 ]]></description>
     <dependencies>
-      <dependency id="discord.install" version="[1.0.9166]" />
+      <dependency id="discord.install" version="[1.0.9168]" />
     </dependencies>
   </metadata>
   <files />
