@@ -63,9 +63,8 @@ if (-not $DiscordPresent -or ($DiscordPresent -and $DiscordOutdated) -or $Env:Ch
   Get-Process 'discord' -ErrorAction SilentlyContinue | Stop-Process -Force
   Write-Host "Installing package"
   Install-ChocolateyPackage @packageArgs
-
-  Write-Host "Due to a bug in the Discord silent installer, you may see this error message:"
-  Write-Host "A fatal Javascript error occured"
-  Write-Host "Error: (InconsistentInstallerState) Attempt to install host that is currently running. current_exe_path: ..."
-  Write-Host "To fix, run $Env:LOCALAPPDATA\Discord\*\discord.exe --squirrel-firstrun"
+  # If upgrading, fix install
+  if ($DiscordPresent) {
+    .\fixOnUpgrade.ps1
+  }
 }
