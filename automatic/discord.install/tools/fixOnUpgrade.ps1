@@ -1,5 +1,5 @@
 $discordPath = Join-Path $Env:LOCALAPPDATA -ChildPath 'Discord'
-if (!Test-Path $discordPath) {
+if (-not (Test-Path $discordPath)) {
     Write-Host "No Discord dir found in LocalAppData."
     return
 }
