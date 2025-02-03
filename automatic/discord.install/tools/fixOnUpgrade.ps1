@@ -40,3 +40,119 @@ if (Test-Path $installerDbPath) {
 
 # Get the latest folder that starts with "app-"
 $appVersionFolder = Get-ChildItem -Path $discordPath | Where-Object { $_.Name -like 'app-*' } | Sort-Object -Descending | Select-Object -First 1
+
+# Check if the squirrel firstrun has been completed
+if (-not $squirrelFirstRunCompleted) {
+    Write-Host "No valid version string found in installer.db or file missing. Running repair process."
+
+    if (-not $appVersionFolder) {
+        Write-Host "Error: No Discord installation found."
+        return
+    }
+
+    $customLog = Join-Path $Env:TEMP "DiscordSquirrelFirstrun.log"
+    if (Test-Path $customLog) { Remove-Item $customLog -Force }
+
+    # Compute a start boundary (current time + 1 minute)
+    $startBoundary = (Get-Date).AddMinutes(1).ToString("yyyy-MM-ddTHH:mm:ss")
+
+    # Generate a temporary XML file for the scheduled task
+    $xmlFile = Join-Path $Env:TEMP "DiscordSquirrelFirstrun.xml"
+    if (Test-Path $xmlFile) { Remove-Item $xmlFile -Force }
+
+    $TaskXML = @"
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+    <RegistrationInfo>
+        <Date>$startBoundary</Date>
+        <Author>$env:USERDOMAIN\$env:USERNAME</Author>
+        <Description>Run Discord --squirrel-firstrun silently and log output to a custom file.</Description>
+        <URI>\DiscordSquirrelFirstrun</URI>
+    </RegistrationInfo>
+    <Triggers>
+        <RegistrationTrigger>
+            <Enabled>true</Enabled>
+        </RegistrationTrigger>
+    </Triggers>
+    <Principals>
+        <Principal id="Author">
+            <RunLevel>HighestAvailable</RunLevel>
+            <UserId>$env:USERDOMAIN\$env:USERNAME</UserId>
+            <LogonType>S4U</LogonType>
+        </Principal>
+    </Principals>
+    <Settings>
+        <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+        <DisallowStartIfOnBatteries>true</DisallowStartIfOnBatteries>
+        <StopIfGoingOnBatteries>true</StopIfGoingOnBatteries>
+        <AllowHardTerminate>true</AllowHardTerminate>
+        <StartWhenAvailable>true</StartWhenAvailable>
+        <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
+        <IdleSettings>
+            <StopOnIdleEnd>true</StopOnIdleEnd>
+            <RestartOnIdle>false</RestartOnIdle>
+        </IdleSettings>
+        <AllowStartOnDemand>true</AllowStartOnDemand>
+        <Enabled>true</Enabled>
+        <Hidden>true</Hidden>
+        <RunOnlyIfIdle>false</RunOnlyIfIdle>
+        <DisallowStartOnRemoteAppSession>false</DisallowStartOnRemoteAppSession>
+        <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+        <WakeToRun>true</WakeToRun>
+        <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
+        <Priority>7</Priority>
+    </Settings>
+    <Actions Context="Author">
+        <Exec>
+            <Command>cmd.exe</Command>
+            <Arguments>/c "$discordPath\$appVersionFolder\Discord.exe --squirrel-firstrun >> $customLog 2>&amp;1"</Arguments>
+        </Exec>
+    </Actions>
+</Task>
+"@
+
+    $TaskXML | Set-Content -Path $xmlFile -Encoding Unicode
+
+    # Create the scheduled task
+    $taskName = "DiscordSquirrelFirstrun"
+    Write-Host "Creating scheduled task '$taskName'..."
+    schtasks /Create /TN "$taskName" /XML "$xmlFile" /F | Out-Null
+    if (-not $?) {
+        Write-Host "Failed to create scheduled task."
+        return
+    }
+    Remove-Item $xmlFile -Force
+
+    # Run the scheduled task immediately then delete it
+    Write-Host "Running scheduled task..."
+    schtasks /Run /TN "$taskName" | Out-Null
+    schtasks /Delete /TN "$taskName" /F | Out-Null
+
+    # Monitor the log file for the success message
+    Write-Host "Monitoring custom log file for success message (timeout: 60 seconds)..."
+    $successString = "CDM completed with status: cdm-ready-"
+    $success = $false
+
+    for ($i = 0; $i -lt 60; $i++) {
+        Start-Sleep -Seconds 1
+        if (Test-Path $customLog) {
+            if (Select-String -Path $customLog -Pattern $successString -Quiet) {
+                $success = $true
+                Write-Host "Terminating Discord..."
+                Stop-Process -Name "Discord" -Force -ErrorAction SilentlyContinue
+                Start-Sleep -Seconds 2
+                break
+            }
+        }
+    }
+
+    # Cleanup and exit
+    Write-Host "Repair complete."
+    if (Test-Path $customLog) { Remove-Item $customLog -Force }
+    if ($success) {
+        Write-Host "Success: Installer state repaired. Launch Discord normally."
+    } else {
+        Write-Host "Warning: Timeout reached. Try manual launch."
+    }
+    return
+}
