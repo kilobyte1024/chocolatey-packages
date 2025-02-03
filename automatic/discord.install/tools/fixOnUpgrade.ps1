@@ -1,3 +1,4 @@
+# Define the root directory for Discord installations
 $discordPath = Join-Path $Env:LOCALAPPDATA -ChildPath 'Discord'
 if (-not (Test-Path $discordPath)) {
     Write-Host "No Discord dir found in LocalAppData."
@@ -6,6 +7,8 @@ if (-not (Test-Path $discordPath)) {
 
 # Define the path to the installer.db file
 $installerDbPath = Join-Path $discordPath "installer.db"
+
+# Determine if the squirrel firstrun has been completed
 
 # Initialize the variable as false by default
 $squirrelFirstRunCompleted = $false
@@ -27,7 +30,7 @@ if (Test-Path $installerDbPath) {
         # Combine the version components
         $version = "$major.$minor.$patch"
 
-        Write-Host "Discord Version Detected: $version"
+        Write-Host "installer.db Discord version: $version"
         $squirrelFirstRunCompleted = $true
     } else {
         Write-Host "Version string not found in the installer.db file. Deleting the file..."
@@ -50,15 +53,16 @@ if (-not $squirrelFirstRunCompleted) {
         return
     }
 
+    # Define the custom log file path
     $customLog = Join-Path $Env:TEMP "DiscordSquirrelFirstrun.log"
-    if (Test-Path $customLog) { Remove-Item $customLog -Force }
+    if (Test-Path $customLog) { Remove-Item $customLog -Force } # Remove existing log file
 
     # Compute a start boundary (current time + 1 minute)
     $startBoundary = (Get-Date).AddMinutes(1).ToString("yyyy-MM-ddTHH:mm:ss")
 
     # Generate a temporary XML file for the scheduled task
     $xmlFile = Join-Path $Env:TEMP "DiscordSquirrelFirstrun.xml"
-    if (Test-Path $xmlFile) { Remove-Item $xmlFile -Force }
+    if (Test-Path $xmlFile) { Remove-Item $xmlFile -Force } # Remove existing XML file
 
     $TaskXML = @"
 <?xml version="1.0" encoding="UTF-16"?>
@@ -121,7 +125,7 @@ if (-not $squirrelFirstRunCompleted) {
         Write-Host "Failed to create scheduled task."
         return
     }
-    Remove-Item $xmlFile -Force
+    Remove-Item $xmlFile -Force # Remove the temporary XML file
 
     # Run the scheduled task immediately then delete it
     Write-Host "Running scheduled task..."
@@ -130,6 +134,8 @@ if (-not $squirrelFirstRunCompleted) {
 
     # Monitor the log file for the success message
     Write-Host "Monitoring custom log file for success message (timeout: 60 seconds)..."
+    # Note: This string is unique to the successful completion of the squirrel firstrun process 
+    # It works whether the Discord account is automatically signed in through a browser or not.
     $successString = "CDM completed with status: cdm-ready-"
     $success = $false
 
