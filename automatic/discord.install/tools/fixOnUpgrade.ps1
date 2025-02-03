@@ -8,6 +8,15 @@ if (-not (Test-Path $discordPath)) {
 # Define the path to the installer.db file
 $installerDbPath = Join-Path $discordPath "installer.db"
 
+# Get the latest folder that starts with "app-"
+$appVersionFolder = Get-ChildItem -Path $discordPath | Where-Object { $_.Name -like 'app-*' } | Sort-Object -Descending | Select-Object -First 1
+
+# Check if the app- folder was found
+if (-not $appVersionFolder) {
+    Write-Host "Error: No Discord installation found."
+    return
+}
+
 # Determine if the squirrel firstrun has been completed
 
 # Initialize the variable as false by default
@@ -41,17 +50,9 @@ if (Test-Path $installerDbPath) {
     
 }
 
-# Get the latest folder that starts with "app-"
-$appVersionFolder = Get-ChildItem -Path $discordPath | Where-Object { $_.Name -like 'app-*' } | Sort-Object -Descending | Select-Object -First 1
-
 # Check if the squirrel firstrun has been completed
 if (-not $squirrelFirstRunCompleted) {
     Write-Host "No valid version string found in installer.db or file missing. Running repair process."
-
-    if (-not $appVersionFolder) {
-        Write-Host "Error: No Discord installation found."
-        return
-    }
 
     # Define the custom log file path
     $customLog = Join-Path $Env:TEMP "DiscordSquirrelFirstrun.log"
