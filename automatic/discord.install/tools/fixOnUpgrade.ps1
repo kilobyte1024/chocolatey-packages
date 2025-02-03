@@ -4,13 +4,38 @@ if (-not (Test-Path $discordPath)) {
     return
 }
 
-# Delete the installer.db file if it exists
+# Define the path to the installer.db file
 $installerDbPath = Join-Path $discordPath "installer.db"
+
+# Initialize the variable as false by default
+$squirrelFirstRunCompleted = $false
+
+# Check if the installer.db file exists
 if (Test-Path $installerDbPath) {
-    Remove-Item $installerDbPath -Force
-    Write-Host "Deleted installer.db file from $discordPath"
+    # Read the file as plain text
+    $fileContent = Get-Content -Path $installerDbPath -Raw
+
+    # Define a regex pattern to find the JSON indicating version
+    $versionPattern = '{"host_version":.*?"version":\[(\d+),(\d+),(\d+)\]}'
+
+    # Search for the pattern in the file
+    if ($fileContent -match $versionPattern) {
+        $major = $matches[1]
+        $minor = $matches[2]
+        $patch = $matches[3]
+
+        # Combine the version components
+        $version = "$major.$minor.$patch"
+
+        Write-Host "Discord Version Detected: $version"
+        $squirrelFirstRunCompleted = $true
+    } else {
+        Write-Host "Version string not found in the installer.db file. Deleting the file..."
+        Remove-Item -Path $installerDbPath -Force
+    }
 } else {
-    Write-Host "No installer.db file found to delete."
+    Write-Host "No installer.db file found."
+    
 }
 
 # Get the latest folder that starts with "app-"
