@@ -147,15 +147,15 @@ if (-not $squirrelFirstRunCompleted) {
                 $success = $true
                 Write-Host "Terminating Discord..."
                 Stop-Process -Name "Discord" -Force -ErrorAction SilentlyContinue
-                Start-Sleep -Seconds 2
+                Start-Sleep -Seconds 2                  
+                if (Test-Path $customLog) { Remove-Item $customLog -Force } # Remove the log file
                 break
             }
         }
     }
 
-    # Cleanup and exit
+    # Exit
     Write-Host "Repair complete."
-    if (Test-Path $customLog) { Remove-Item $customLog -Force }
     if ($success) {
         Write-Host "Success: Installer state repaired. Launch Discord normally."
     } else {
