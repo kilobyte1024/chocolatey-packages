@@ -4,13 +4,13 @@ $packageArgs = @{
   packageName       = 'discord.install'
   fileType          = 'exe'
   url               = 'https://stable.dl2.discordapp.net/distro/app/stable/win/x86/1.0.9059/DiscordSetup.exe'
-  url64bit          = 'https://stable.dl2.discordapp.net/distro/app/stable/win/x64/1.0.9193/DiscordSetup.exe'
+  url64bit          = 'https://stable.dl2.discordapp.net/distro/app/stable/win/x64/1.0.9194/DiscordSetup.exe'
 
   softwareName      = 'discord*'
 
   checksum          = '85060117d7c75378fcbf8b3824e79549002bc5298ae46fcaa2524c83c476596a'
   checksumType      = 'sha256'
-  checksum64        = '8afae537f553d41cb2b3cc6f7abc542316698f1d38004d157bcc532d617908ba'
+  checksum64        = 'c1c9a01d72966cb9cec73b9ae53660b4fd98d80cf288b83412003481bc166dfc'
   checksumType64    = 'sha256'
 
   silentArgs        = "-s"
