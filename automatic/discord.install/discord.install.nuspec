@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>discord.install</id>
-    <version>1.0.9195</version>
+    <version>1.0.9196</version>
     <title>Discord (Install)</title>
     <iconUrl>https://cdn.jsdelivr.net/gh/kilobyte1024/chocolatey-packages/icons/discord.svg</iconUrl>
     <owners>kilobyte</owners>
