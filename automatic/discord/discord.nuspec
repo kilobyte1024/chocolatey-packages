@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>discord</id>
-    <version>1.0.9210</version>
+    <version>1.0.9211</version>
     <title>Discord</title>
     <iconUrl>https://cdn.jsdelivr.net/gh/kilobyte1024/chocolatey-packages/icons/discord.svg</iconUrl>
     <owners>kilobyte</owners>
@@ -33,7 +33,7 @@
 **NOTE**: This is an automatically updated package. If you find it is out of date by more than a week, please contact the maintainer(s) and let them know the package is no longer updating correctly.
 ]]></description>
     <dependencies>
-      <dependency id="discord.install" version="[1.0.9210]" />
+      <dependency id="discord.install" version="[1.0.9211]" />
     </dependencies>
   </metadata>
   <files />
