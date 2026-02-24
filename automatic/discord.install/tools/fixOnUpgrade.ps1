@@ -135,9 +135,8 @@ if (-not $squirrelFirstRunCompleted) {
 
     # Monitor the log file for the success message
     Write-Host "Monitoring custom log file for success message (timeout: 60 seconds)..."
-    # Note: This string is unique to the successful completion of the squirrel firstrun process 
-    # It works whether the Discord account is automatically signed in through a browser or not.
-    $successString = "CDM completed with status: cdm-ready-"
+    # Note: This string indicates the update spalsh screen has closed. Therefore, all updates have been installed.
+    $successString = "window.closed win1"
     $success = $false
 
     for ($i = 0; $i -lt 60; $i++) {
