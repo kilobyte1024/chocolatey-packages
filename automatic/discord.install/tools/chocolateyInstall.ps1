@@ -64,5 +64,5 @@ if (-not $DiscordPresent -or ($DiscordPresent -and $DiscordOutdated) -or $Env:Ch
   Write-Host "Installing package"
   Install-ChocolateyPackage @packageArgs
   # Ensure installer state is consistent (run on every install, not just upgrades)
-  .\fixInstallerState.ps1
+  . (Join-Path $PSScriptRoot 'fixInstallerState.ps1')
 }
