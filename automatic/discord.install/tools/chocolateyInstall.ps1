@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference  = 'Stop'
+$ErrorActionPreference  = 'Stop'
 
 $packageArgs = @{
   packageName       = 'discord.install'
@@ -63,8 +63,6 @@ if (-not $DiscordPresent -or ($DiscordPresent -and $DiscordOutdated) -or $Env:Ch
   Get-Process 'discord' -ErrorAction SilentlyContinue | Stop-Process -Force
   Write-Host "Installing package"
   Install-ChocolateyPackage @packageArgs
-  # If upgrading, fix install
-  if ($DiscordPresent) {
-    .\fixOnUpgrade.ps1
-  }
+  # Ensure installer state is consistent (run on every install, not just upgrades)
+  .\fixInstallerState.ps1
 }
