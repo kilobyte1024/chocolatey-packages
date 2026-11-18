@@ -21,7 +21,7 @@ environment:
   # Github token to commit pushed packages to repository
   github_user_repo: kilobyte1024/chocolatey-packages
   github_api_key:
-    secure: J+LAshUNhdYVSPyJyiSLeZZiHZ6nnNuWFNPpHgAruLL3BJ/Y8HtcX7IE4zBVPQ/5Lv/+z7Gwc7KkseFA+SvrQ+4eupbtcHYUIqbHvyBhxsgH6+xKhF/LMqRmyro4oA6G #https://ci.appveyor.com/tools/encrypt
+    secure: J+LAshUNhdYVSPyJyiSLeZh1UQn2IOuD+5lFHo3sMqrajLsxSHmRTuHt29Vn4CNiqZRGAhxOJ9nPKZacq75FbZPZrMBnGTiZ4rZYd5i3S2zuvLLoL0gpM/iyYJ7/+zww #https://ci.appveyor.com/tools/encrypt
 
 
   # Mail credentials - for error notifications
