@@ -8,6 +8,9 @@ if (-not (Test-Path $discordPath)) {
 # Define the path to the installer.db file
 $installerDbPath = Join-Path $discordPath "installer.db"
 
+# Regex that finds the JSON indicating the installed version
+$versionPattern = '{"host_version":.*?"version":\[(\d+),(\d+),(\d+)\]}'
+
 # Get the latest folder that starts with "app-"
 $appVersionFolder = Get-ChildItem -Path $discordPath | Where-Object { $_.Name -like 'app-*' } | Sort-Object -Descending | Select-Object -First 1
 
@@ -27,9 +30,6 @@ if (Test-Path $installerDbPath) {
     # Read the file as plain text
     $fileContent = Get-Content -Path $installerDbPath -Raw
 
-    # Define a regex pattern to find the JSON indicating version
-    $versionPattern = '{"host_version":.*?"version":\[(\d+),(\d+),(\d+)\]}'
-
     # Search for the pattern in the file
     if ($fileContent -match $versionPattern) {
         $major = $matches[1]
@@ -48,6 +48,23 @@ if (Test-Path $installerDbPath) {
 } else {
     Write-Host "No installer.db file found."
     
+}
+
+# Squirrel writes a complete installer.db into the app- folder (asynchronously, after the
+# installer exits), so wait for it and copy it instead of running Discord from a scheduled task
+if (-not $squirrelFirstRunCompleted) {
+    Write-Host "Waiting for installer.db in the newest app- folder (timeout: 60 seconds)..."
+    for ($i = 0; $i -lt 60 -and -not $squirrelFirstRunCompleted; $i++) {
+        $appVersionFolder = Get-ChildItem -Path $discordPath | Where-Object { $_.Name -like 'app-*' } | Sort-Object -Descending | Select-Object -First 1
+        $appInstallerDbPath = Join-Path $appVersionFolder.FullName "installer.db"
+        if ((Test-Path $appInstallerDbPath) -and ((Get-Content -Path $appInstallerDbPath -Raw) -match $versionPattern)) {
+            Copy-Item -Path $appInstallerDbPath -Destination $installerDbPath -Force
+            Write-Host "installer.db copied from $($appVersionFolder.Name) (Discord version $($matches[1]).$($matches[2]).$($matches[3]))."
+            $squirrelFirstRunCompleted = $true
+        } else {
+            Start-Sleep -Seconds 1
+        }
+    }
 }
 
 # Check if the squirrel firstrun has been completed
@@ -121,9 +138,14 @@ if (-not $squirrelFirstRunCompleted) {
     # Create the scheduled task
     $taskName = "DiscordSquirrelFirstrun"
     Write-Host "Creating scheduled task '$taskName'..."
-    schtasks /Create /TN "$taskName" /XML "$xmlFile" /F | Out-Null
-    if (-not $?) {
-        Write-Host "Failed to create scheduled task."
+    try {
+        schtasks /Create /TN "$taskName" /XML "$xmlFile" /F | Out-Null
+    } catch {
+        Write-Host "schtasks: $_"
+    }
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warning "Failed to create scheduled task. Launch Discord once to finish its setup."
+        Remove-Item $xmlFile -Force -ErrorAction SilentlyContinue
         return
     }
     Remove-Item $xmlFile -Force # Remove the temporary XML file
